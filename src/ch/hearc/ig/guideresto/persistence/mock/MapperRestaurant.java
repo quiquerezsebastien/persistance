@@ -20,9 +20,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperRestaurant {
+public class MapperRestaurant extends MapperAbstractRestaurant{
     
-    
+    @Override
     public void insert (Restaurant pRest){
         String requete = "INSERT INTO RESTAURANTS (numero, nom, adresse, description, site_web, fk_type, fk_vill) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection cnn = new DbConnection().getConnection();
@@ -50,6 +50,7 @@ public class MapperRestaurant {
         }
     }
     
+    @Override
     public void update (Restaurant pRest){
         
         String requete = "UPDATE RESTAURANTS set nom = ?, adresse = ?, descrption = ?, site_web = ?, fk_type = ?, fk_vill = ? WHERE numero = ?";
@@ -78,6 +79,7 @@ public class MapperRestaurant {
         
     }
     
+    @Override
     public void delete (Restaurant pRest){
         
         String requete = "DELETE FROM RESTAURANTS WHERE numero = ?";
@@ -100,6 +102,7 @@ public class MapperRestaurant {
         
     }
     
+    @Override
     public Set<Restaurant> find(){
         
         Connection cnn = new DbConnection().getConnection();
@@ -132,6 +135,7 @@ public class MapperRestaurant {
         return restaurants;
     }
     
+    @Override
     public Restaurant findById(int pId){
         Restaurant restau = null;
         Connection cnn = new DbConnection().getConnection();

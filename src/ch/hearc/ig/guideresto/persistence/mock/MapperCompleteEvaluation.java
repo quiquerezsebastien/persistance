@@ -19,9 +19,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperCompleteEvaluation{
+public class MapperCompleteEvaluation extends MapperAbstractEvaluation{
 
-    
+    @Override
     public void insert(Evaluation pEval) {
         
         String requete = "INSERT INTO COMMENTAIRES (numero, date_eval, commentaire, nom_utilisateur, fk_rest) VALUES (?, ?, ?, ?, ?)";
@@ -46,6 +46,7 @@ public class MapperCompleteEvaluation{
         
     }
     
+    @Override
     public void update(Evaluation pEval) {
         
         String requete = "UPDATE COMMENTAIRES set date_eval = ? commentaire = ?, nom_utilisateur = ?, fk_rest = ? WHERE numero = ?";
@@ -70,6 +71,7 @@ public class MapperCompleteEvaluation{
         
     }
     
+    @Override
     public void delete(Evaluation pEval) {
         
         String requete = "DELETE FROM COMMENTAIRES WHERE numero = ?";
@@ -89,9 +91,10 @@ public class MapperCompleteEvaluation{
         }
     }
     
-    public Set<CompleteEvaluation> find() {
+    @Override
+    public Set<Evaluation> find() {
         
-        Set<CompleteEvaluation> evals = new HashSet<CompleteEvaluation>();
+        Set<Evaluation> evals = new HashSet<Evaluation>();
         String requete = "SELECT numero, date_eval, commentaire, nom_utilisateur, fk_rest FROM commentaires";
         Connection cnn = new DbConnection().getConnection();
         try {

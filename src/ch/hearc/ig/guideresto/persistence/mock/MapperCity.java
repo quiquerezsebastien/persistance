@@ -16,8 +16,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperCity {
+public class MapperCity extends MapperAbstractCity{
     
+    @Override
     public void insert (City pCity){
         String requete = "INSERT INTO VILLES (numero, code_postal, nom_ville) VALUES (?, ?, ?)";
         
@@ -39,6 +40,7 @@ public class MapperCity {
         }
     }
     
+    @Override
     public void update (City pCity){
         
         String requete = "UPDATE VILLES set code_postal = ?, nom_ville = ? WHERE numero = ?";
@@ -61,6 +63,7 @@ public class MapperCity {
         
     }
     
+    @Override
     public void delete (City pCity){
         
         String requete = "DELETE FROM VILLES WHERE numero = ?";
@@ -82,6 +85,7 @@ public class MapperCity {
         
     }
     
+    @Override
     public Set<City> find(){
         
         Set<City> cities = new HashSet<City>();
@@ -109,6 +113,7 @@ public class MapperCity {
         return cities;
     }
     
+    @Override
     public City findById(int pId){
         City city = null;
         
@@ -119,33 +124,6 @@ public class MapperCity {
             PreparedStatement prestmt = cnn.prepareStatement(requete);
             
             prestmt.setInt(1, pId);
-
-            ResultSet res = prestmt.executeQuery();
-            
-            while (res.next()) {
-                city = new City(res.getInt("numero"), res.getString("code_postal"), res.getString("nom_ville"));
-            }
-                    
-            res.close();
-            prestmt.close();
-            cnn.close();
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-        
-        return city;
-    }
-
-    public City findById(String choice) {
-        City city = null;
-        
-        String requete = "SELECT numero, code_postal, nom_ville FROM VILLES WHERE code_postal = ?";
-        Connection cnn = new DbConnection().getConnection();
-        try {
-            
-            PreparedStatement prestmt = cnn.prepareStatement(requete);
-            
-            prestmt.setString(1, choice);
 
             ResultSet res = prestmt.executeQuery();
             

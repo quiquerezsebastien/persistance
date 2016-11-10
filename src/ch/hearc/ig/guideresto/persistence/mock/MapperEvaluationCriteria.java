@@ -5,7 +5,6 @@
  */
 package ch.hearc.ig.guideresto.persistence.mock;
 
-import ch.hearc.ig.guideresto.business.City;
 import ch.hearc.ig.guideresto.business.EvaluationCriteria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

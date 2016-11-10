@@ -8,7 +8,6 @@ package ch.hearc.ig.guideresto.persistence.mock;
 import ch.hearc.ig.guideresto.business.CompleteEvaluation;
 import ch.hearc.ig.guideresto.business.EvaluationCriteria;
 import ch.hearc.ig.guideresto.business.Grade;
-import ch.hearc.ig.guideresto.business.Restaurant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,8 +18,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperGrade {
+public class MapperGrade extends MapperAbstractGrade{
     
+    @Override
     public void insert (Grade pGrade){
         String requete = "INSERT INTO NOTES (numero, note, fk_comm, fk_crit) VALUES (?, ?, ?, ?)";
         Connection cnn = new DbConnection().getConnection();
@@ -41,6 +41,7 @@ public class MapperGrade {
         }
     }
     
+    @Override
     public void update (Grade pGrade){
         Connection cnn = new DbConnection().getConnection();
         String requete = "UPDATE NOTES set note = ?, fk_comm = ?, fk_crit = ? WHERE numero = ?";
@@ -65,6 +66,7 @@ public class MapperGrade {
         
     }
     
+    @Override
     public void delete (Grade pGrade){
         Connection cnn = new DbConnection().getConnection();
         String requete = "DELETE FROM NOTES WHERE numero = ?";
@@ -86,6 +88,7 @@ public class MapperGrade {
         
     }
     
+    @Override
     public Set<Grade> find(){
         
         Set<Grade> grades = new HashSet<Grade>();

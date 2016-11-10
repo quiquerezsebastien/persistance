@@ -16,8 +16,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperRestaurantType {
+public class MapperRestaurantType extends MapperAbstractRestaurantType{
     
+    @Override
     public void insert (RestaurantType pRestType){
         String requete = "INSERT INTO TYPES_GASTRONOMIQUES (numero, libelle, description) VALUES (?, ?, ?)";
         Connection cnn = new DbConnection().getConnection();
@@ -37,6 +38,7 @@ public class MapperRestaurantType {
         }
     }
     
+    @Override
     public void update (RestaurantType pRestType){
         
         String requete = "UPDATE TYPES_GASTRONOMIQUES set libelle = ?, description = ? WHERE numero = ?";
@@ -59,6 +61,7 @@ public class MapperRestaurantType {
         
     }
     
+    @Override
     public void delete (RestaurantType pRestType){
         
         String requete = "DELETE FROM TYPES_GASTRONOMIQUES WHERE numero = ?";
@@ -81,6 +84,7 @@ public class MapperRestaurantType {
         
     }
     
+    @Override
     public Set<RestaurantType> find(){
         
         Set<RestaurantType> restaurantTypes = new HashSet<RestaurantType>();
@@ -108,6 +112,7 @@ public class MapperRestaurantType {
         return restaurantTypes;
     }
     
+    @Override
     public RestaurantType findById(int pId){
         RestaurantType restType = null;
         

@@ -17,8 +17,9 @@ import java.util.Set;
  *
  * @author sebastie.quiquere
  */
-public class MapperEvaluationCriteria {
+public class MapperEvaluationCriteria extends MapperAbstractEvaluationCriteria{
     
+    @Override
     public void insert (EvaluationCriteria eval){
         String requete = "INSERT INTO CRITERES_EVALUATION (numero, nom, description) VALUES (?, ?, ?)";
         Connection cnn = new DbConnection().getConnection();
@@ -38,6 +39,7 @@ public class MapperEvaluationCriteria {
         }
     }
     
+    @Override
     public void update (EvaluationCriteria eval){
         
         String requete = "UPDATE CRITERES_EVALUATION set nom = ?, description = ? WHERE numero = ?";
@@ -61,6 +63,7 @@ public class MapperEvaluationCriteria {
         
     }
     
+    @Override
     public void delete (EvaluationCriteria eval){
         
         String requete = "DELETE FROM CRITERES_EVALUATION WHERE numero = ?";
@@ -82,12 +85,13 @@ public class MapperEvaluationCriteria {
         
     }
     
-    public Set<City> find(){
+    @Override
+    public Set<EvaluationCriteria> find(){
         
-        Set<City> cities = new HashSet<City>();
-        
-        String requete = "SELECT numero, code_postal, nom_ville FROM VILLES";
+        Set<EvaluationCriteria> evaCrits = new HashSet<EvaluationCriteria>();
         Connection cnn = new DbConnection().getConnection();
+        String requete = "SELECT numero, nom, description FROM CRITERES_EVALUATION";
+        
         try {
             
             PreparedStatement prestmt = cnn.prepareStatement(requete);
@@ -95,8 +99,8 @@ public class MapperEvaluationCriteria {
             ResultSet res = prestmt.executeQuery();
             
             while (res.next()) {
-                City city = new City(res.getInt("numero"), res.getString("code_postal"), res.getString("nom_ville"));
-                cities.add(city);
+                EvaluationCriteria evaCrit = new EvaluationCriteria(res.getInt("numero"), res.getString("nom"), res.getString("description"));
+                evaCrits.add(evaCrit);
             }
                     
             res.close();
@@ -106,9 +110,10 @@ public class MapperEvaluationCriteria {
                 e.printStackTrace();
         }
         
-        return cities;
+        return evaCrits;
     }
     
+    @Override
     public EvaluationCriteria findById(int pId){
         EvaluationCriteria evalCriter = null;
         
